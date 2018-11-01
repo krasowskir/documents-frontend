@@ -26,22 +26,18 @@ export default class FotoComponent extends Component {
     let result = null;
 
     return (
-      <form className="fotodiv">
-        <div className="fotocontent">
-          {this.state.image != null ? (
-            <img src={URL.createObjectURL(this.state.image)} alt="could not be rendered" className="fotoimage" />
-          ) : (
-            <i class="fas fa-user fa-7x" aria-hidden="true" />
-          )}
+      <div className="fotocontainer">
+        {this.state.image != null ? (
+          <img src={URL.createObjectURL(this.state.image)} alt="could not be rendered" className="fotoimage" />
+        ) : (
+          <i class="fas fa-user fa-7x" aria-hidden="true" />
+        )}
+
+        <div className="fotouploadcomponent">
+          <label for="exampleFormControl ">Foto hochladen...</label>
+          <input type="file" className="form-control-file" id="file" name="file" onChange={this.onChange} />
         </div>
-        <form action="http://localhost:8090/fotoupload" method="POST" encType="multipart/form-data">
-          <div className="form-group fotouploadcomponent">
-            <label for="exampleFormControl ">Foto hochladen...</label>
-            <input type="file" className="form-control-file" id="file" name="file" onChange={this.onChange} />
-            <input type="submit" />
-          </div>
-        </form>
-      </form>
+      </div>
     );
   }
 }

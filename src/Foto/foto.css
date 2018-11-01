@@ -1,14 +1,9 @@
-.fotodiv {
+.fotocontainer {
   display: flex;
   flex-direction: column;
-  align-content: center;
-  background-color: cadetblue;
-}
-.fotocontent {
-  display: flex;
+  align-items: center;
   justify-content: center;
   background-color: cadetblue;
-  margin: 20px;
 }
 .fotouploadcomponent {
   display: flex;
@@ -19,8 +14,4 @@
 .fotoimage {
   max-width: 200px;
   max-height: 300px;
-}
-
-.fotouploadcomponent > input {
-  margin: 10px;
 }
