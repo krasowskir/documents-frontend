@@ -15,3 +15,11 @@
 .zweit {
   width: 50%;
 }
+
+.profilInhalt {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-basis: 50%;
+  margin: 20px;
+}

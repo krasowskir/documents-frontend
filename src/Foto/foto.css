@@ -1,0 +1,26 @@
+.fotodiv {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  background-color: cadetblue;
+}
+.fotocontent {
+  display: flex;
+  justify-content: center;
+  background-color: cadetblue;
+  margin: 20px;
+}
+.fotouploadcomponent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.fotoimage {
+  max-width: 200px;
+  max-height: 300px;
+}
+
+.fotouploadcomponent > input {
+  margin: 10px;
+}

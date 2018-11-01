@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.bundle";
+
+import ProfilTab from "./ProfilTab/ProfilTab";
+import FotoComponent from "./Foto/FotoComponent";
 
 class App extends Component {
   render() {
@@ -36,7 +38,10 @@ class App extends Component {
             Start
           </div>
           <div className="tab-pane fade" id="profil" role="tabpanel" aria-labelledby="profil-tab">
-            Profil
+            <div className="profilInhalt">
+              <ProfilTab />
+              <FotoComponent />
+            </div>
           </div>
           <div className="tab-pane fade" id="kontakt" role="tabpanel" aria-labelledby="kontakt-tab">
             Kontakt
