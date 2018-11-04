@@ -17,9 +17,9 @@
 }
 
 .profilInhalt {
-  display: flex;
+  /* display: flex;
   flex-direction: row;
   justify-content: flex-start;
   flex-basis: 50%;
-  margin: 20px;
+  margin: 20px; */
 }

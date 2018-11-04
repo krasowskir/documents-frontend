@@ -38,10 +38,7 @@ class App extends Component {
             Start
           </div>
           <div className="tab-pane fade" id="profil" role="tabpanel" aria-labelledby="profil-tab">
-            <div className="profilInhalt">
-              <ProfilTab />
-              <FotoComponent />
-            </div>
+            <ProfilTab />
           </div>
           <div className="tab-pane fade" id="kontakt" role="tabpanel" aria-labelledby="kontakt-tab">
             Kontakt
