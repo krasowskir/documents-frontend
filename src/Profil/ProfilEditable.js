@@ -5,13 +5,14 @@ import { Button, Form } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import "./profil.css";
 
-export default class ProfilTab extends Component {
+export default class ProfilEditable extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      editable: true,
       name: null,
       alter: null,
-      telefonnummer: null,
+      telefonNummer: null,
       email: null,
       image: null
     };
@@ -21,6 +22,18 @@ export default class ProfilTab extends Component {
     this.onChangeTel = this.onChangeTel.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    let { name, alter, telefonNummer, email } = this.props.account;
+    console.log("didMount " + name, alter, telefonNummer, email);
+    this.setState({
+      editable: false,
+      name,
+      alter,
+      telefonNummer,
+      email
+    });
   }
 
   onChangeImage(e) {
@@ -64,20 +77,26 @@ export default class ProfilTab extends Component {
 
   onSubmit() {
     console.info("submitted with: " + JSON.stringify(this.state));
+    var form = document.querySelector("myForm");
+    this.props.onClick();
     fetch("http://localhost:8090/api/accountPost", {
       method: "POST",
-      body: JSON.stringify(this.state)
-    }).then(response => response.json());
+      body: new FormData(form)
+    }).then(response => {
+      if (response.status == "200") {
+        console.log(JSON.stringify(response));
+      }
+    });
   }
 
   render() {
     return (
-      <Form className="row" method="post" action="http://localhost:8090/api/accountPost" encType="multipart/form-data">
+      <Form className="row" method="post" id="myForm" encType="multipart/form-data">
         <div className="meinform col-md-4 offset-md-2">
-          <MyInput type="text" name="name" placeholder="Name..." onChange={this.onChangeName} />
-          <MyInput type="text" name="alter" placeholder="Alter..." onChange={this.onChangeAlter} />
-          <MyInput type="text" name="tel" placeholder="Telefonnummer..." onChange={this.onChangeTel} />
-          <MyInput type="text" name="email" placeholder="Email..." onChange={this.onChangeEmail} />
+          <MyInput type="text" name="name" placeholder="Name..." value={this.state.name} onChange={this.onChangeName} />
+          <MyInput type="text" name="alter" placeholder="Alter..." value={this.state.alter} onChange={this.onChangeAlter} />
+          <MyInput type="text" name="tel" placeholder="Telefonnummer..." value={this.state.telefonNummer} onChange={this.onChangeTel} />
+          <MyInput type="text" name="email" placeholder="Email..." value={this.state.email} onChange={this.onChangeEmail} />
           <Button type="submit" className="btn btn-primary">
             Abgeben
           </Button>

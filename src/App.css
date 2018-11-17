@@ -1,25 +1,18 @@
-.App {
-  text-align: center;
+.profilInhalt {
+}
+
+.bodyInhalt {
+  width: 100%;
+  display: flex;
+}
+
+.rootElem {
+  width: 100%;
   display: flex;
   flex-direction: row;
+  justify-content: center;
 }
 
-.App--testTeil {
-  background-color: aqua;
-}
-
-.erst {
-  width: 50%;
-}
-
-.zweit {
-  width: 50%;
-}
-
-.profilInhalt {
-  /* display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  flex-basis: 50%;
-  margin: 20px; */
+.profilContainer {
+  width: 100%;
 }
