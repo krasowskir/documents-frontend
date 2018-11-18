@@ -3,7 +3,7 @@ import FotoComponent from "../Foto/FotoComponent";
 import MyInput from "../widgets/Input";
 import { Button, Form } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.css";
-import "./profil.css";
+import "./profil.scss";
 
 export default class ProfilEditable extends Component {
   constructor(props) {
@@ -97,7 +97,7 @@ export default class ProfilEditable extends Component {
           <MyInput type="text" name="alter" placeholder="Alter..." value={this.state.alter} onChange={this.onChangeAlter} />
           <MyInput type="text" name="tel" placeholder="Telefonnummer..." value={this.state.telefonNummer} onChange={this.onChangeTel} />
           <MyInput type="text" name="email" placeholder="Email..." value={this.state.email} onChange={this.onChangeEmail} />
-          <Button type="submit" className="btn btn-primary">
+          <Button type="submit" className="btn btn-primary" onClick={this.props.onClick}>
             Abgeben
           </Button>
         </div>

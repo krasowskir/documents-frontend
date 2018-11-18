@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import { Card } from "reactstrap";
-import "./profil.css";
+import { Card, CardImg, CardBody, CardTitle, Table } from "reactstrap";
+import myImage from "../assets/myImage2.png";
+import Profileigenschaften from "./Profileeigenschaften";
+import "./profil.scss";
 import { Button } from "reactstrap";
 
 export default class ProfilPortrait extends Component {
@@ -13,6 +15,20 @@ export default class ProfilPortrait extends Component {
       telefonNr: "",
       image: null
     };
+  }
+
+  componentDidMount() {
+    let { name, alter, email, telefonNr } = this.state;
+    name = this.props.account.name;
+    alter = this.props.account.alter;
+    telefonNr = this.props.account.telefonNummer;
+    email = this.props.account.emailAdresse;
+    this.setState({
+      name,
+      alter,
+      email,
+      telefonNr
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -38,20 +54,18 @@ export default class ProfilPortrait extends Component {
     let { image } = this.state;
 
     return (
-      <Card className="card cardStyle">
-        <Button className="btn btn-success" onClick={this.props.onClick}>
-          Bearbeiten
-        </Button>
-        {image != null ? (
-          <img className="card-img-top" alt="Card image cap" src={URL.createObjectURL(image)} />
-        ) : (
-          <img className="card-img-top" alt="Card image cap" src="" />
-        )}
-        <h5 className="card-title">{this.state.name}</h5>
-        <p className="card-text">{this.state.alter}</p>
-        <p className="card-text">{this.state.email}</p>
-        <p className="card-text">{this.state.telefonNr}</p>
-      </Card>
+      <div>
+        <Card className="card o-card">
+          <CardImg className="card-img-top card__image" alt="Card image cap" src={myImage} />
+          <CardBody>
+            <CardTitle className="card-title">{this.state.name}</CardTitle>
+            <Profileigenschaften attribute={this.state} />
+            <Button className="btn btn-success" onClick={this.props.onClick}>
+              Bearbeiten
+            </Button>
+          </CardBody>
+        </Card>
+      </div>
     );
   }
 }

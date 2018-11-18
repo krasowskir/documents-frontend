@@ -1,0 +1,13 @@
+.o-card {
+  display: flex;
+  flex-direction: column;
+
+  width: 32rem;
+  background-color: #333;
+  color: white;
+  border-color: #333;
+}
+.card__image {
+  align-self: center;
+  width: 14rem;
+}

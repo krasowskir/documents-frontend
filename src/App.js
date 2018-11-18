@@ -4,15 +4,17 @@ import fetch from "isomorphic-fetch";
 import base64 from "base-64";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.bundle";
-
+import ThemenTabs from "./ThemenTabs/ThemenTabs";
 import Login from "./Login/Login";
+import Board from "./Blog/Board";
 import ProfilContainer from "./Profil/ProfilContainer";
+import ProfilPortrait from "./Profil/ProfilPortrait";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      logedIn: null,
+      logedIn: true,
       editable: false,
       username: "",
       password: ""
@@ -41,30 +43,18 @@ class App extends Component {
             Erster Menüeintrag
           </a>
         </nav>
-        <ul className="nav nav-tabs" id="mytab" role="tablist">
-          <li className="nav-item">
-            <a className="nav-link" id="start-tab" href="#start" data-toggle="tab" role="tab" aria-controls="start" aria-selected="true">
-              Test1
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" id="profil-tab" href="#profil" data-toggle="tab" role="tab" aria-controls="profil" aria-selected="false">
-              Test2
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" id="kontakt-tab" href="#kontakt" data-toggle="tab" role="tab" aria-controls="kontakt" aria-selected="false">
-              Test3
-            </a>
-          </li>
-        </ul>
+        <ThemenTabs />
 
         <div className="tab-content" id="mytabcontetn">
           <div className="tab-pane fade show active" id="start" role="tabpanel" aria-labelledby="start-tab">
-            Start
+            <Board />
           </div>
           <div className="tab-pane fade" id="profil" role="tabpanel" aria-labelledby="profil-tab">
-            <ProfilContainer credentials={this.state} />
+            {/* <ProfilPortrait
+              account={{ name: "richard", telefonNummer: "015140460849", alter: "27", email: "krtoni@arcor.de" }}
+              credentials={this.state}
+            /> */}
+            <ProfilContainer />
           </div>
           <div className="tab-pane fade" id="kontakt" role="tabpanel" aria-labelledby="kontakt-tab">
             Kontakt

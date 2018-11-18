@@ -18,9 +18,9 @@ export default class ProfilContainer extends Component {
   }
 
   componentDidMount() {
-    let { username, password } = this.props.credentials;
-    console.log("credentials: " + username, password);
-    this.fetchAccount({ username, password });
+    //let { username, password } = this.props.credentials;
+    //console.log("credentials: " + username, password);
+    //this.fetchAccount({ username, password });
   }
 
   toggleEditable() {
@@ -102,9 +102,9 @@ export default class ProfilContainer extends Component {
 
   render() {
     return this.state.editable ? (
-      <ProfilEditable account={this.state} onClick={this.toggleEditable} />
+      <ProfilEditable account={{ name: "richard", telefonNummer: "015140460849", alter: "27", email: "krtoni@arcor.de" }} onClick={this.toggleEditable} />
     ) : (
-      <ProfilPortrait account={this.state} onClick={this.toggleEditable} />
+      <ProfilPortrait account={{ name: "richard", telefonNummer: "015140460849", alter: "27", email: "krtoni@arcor.de" }} onClick={this.toggleEditable} />
     );
   }
 }
