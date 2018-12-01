@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import "./Themen.scss";
 
 export default props => (
-  <ul className="nav nav-tabs" id="mytab" role="tablist">
+  <ul className="nav nav-tabs themen" id="mytab" role="tablist">
     <li className="nav-item">
       <a className="nav-link" id="start-tab" href="#start" data-toggle="tab" role="tab" aria-controls="start" aria-selected="true">
         Test1

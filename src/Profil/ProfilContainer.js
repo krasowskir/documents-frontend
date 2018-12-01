@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ProfilPortrait from "./ProfilPortrait";
 import ProfilEditable from "./ProfilEditable";
 import base64 from "base-64";
+import MyModal from "../widgets/MyModal";
 
 export default class ProfilContainer extends Component {
   constructor(props) {
@@ -12,15 +13,18 @@ export default class ProfilContainer extends Component {
       alter: null,
       telefonNummer: null,
       email: null,
-      image: null
+      image: null,
+      modal: false
     };
     this.toggleEditable = this.toggleEditable.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
+    this.schickAccount = this.schickAccount.bind(this);
+    this.fetchAccount = this.fetchAccount.bind(this);
+    this.showModal = this.showModal.bind(this);
   }
 
   componentDidMount() {
-    //let { username, password } = this.props.credentials;
-    //console.log("credentials: " + username, password);
-    //this.fetchAccount({ username, password });
+    this.fetchAccount(this.props.credentials);
   }
 
   toggleEditable() {
@@ -29,6 +33,22 @@ export default class ProfilContainer extends Component {
     this.setState({
       editable
     });
+  }
+
+  toggleModal() {
+    let { modal } = this.state;
+    modal = !modal;
+    this.setState({
+      modal
+    });
+  }
+
+  showModal() {
+    this.toggleModal();
+    setTimeout(() => {
+      this.toggleModal();
+      this.toggleEditable();
+    }, 3000);
   }
 
   fetchAccount(credentials) {
@@ -87,24 +107,59 @@ export default class ProfilContainer extends Component {
         }
       })
       .then(body => {
-        this.onAccountImageFetched(body);
+        const myBlob = new Blob([body], { type: "image/png" });
+        this.setState({
+          image: myBlob
+        });
         console.log("body: " + body);
       });
   }
 
-  onAccountImageFetched(myImage) {
-    let { image } = this.state;
-    image = myImage;
-    this.setState({
-      image
-    });
+  schickAccount(profilObj) {
+    console.log("profilObj: " + JSON.stringify(profilObj));
+    let { username, password } = this.props.credentials;
+    let { name, alter, telefonNummer, image, email } = profilObj;
+
+    let headers = new Headers();
+
+    var data = new FormData();
+    data.append("account", JSON.stringify({ name, alter, telefonNummer, image, email }));
+    data.append("myImage", image);
+
+    headers.append("Accept", "application/json");
+    headers.append("Authorization", "Basic " + base64.encode(username + ":" + password));
+
+    console.log("toggle beginnt");
+    this.showModal();
+
+    fetch("http://localhost:8090/api/account/id/c27a0ae4-26c6-4cfb-8812-761a55cc611b", {
+      method: "POST",
+      credentials: "include",
+      headers: headers,
+      body: data
+    })
+      .then(response => {
+        if (response.status === 200) {
+          console.log("fertig erfolgreich");
+          this.setState({
+            name: profilObj.name,
+            alter: profilObj.alter,
+            telefonNummer: profilObj.telefonNummer,
+            email: profilObj.email,
+            image: profilObj.image
+          });
+        }
+      })
+      .catch(error => console.error("Error:", error));
   }
 
   render() {
     return this.state.editable ? (
-      <ProfilEditable account={{ name: "richard", telefonNummer: "015140460849", alter: "27", email: "krtoni@arcor.de" }} onClick={this.toggleEditable} />
+      <div>
+        {this.state.modal ? <MyModal progress="20" finalState="100" val="0" /> : <ProfilEditable account={this.state} onClick={this.schickAccount} />}
+      </div>
     ) : (
-      <ProfilPortrait account={{ name: "richard", telefonNummer: "015140460849", alter: "27", email: "krtoni@arcor.de" }} onClick={this.toggleEditable} />
+      <ProfilPortrait account={this.state} onClick={this.toggleEditable} />
     );
   }
 }

@@ -1,10 +1,12 @@
+$myColor: rgba(255, 255, 255, 0.938);
+
 .o-card {
   display: flex;
   flex-direction: column;
 
   width: 32rem;
   background-color: #333;
-  color: white;
+  color: $myColor;
   border-color: #333;
 }
 .card__image {

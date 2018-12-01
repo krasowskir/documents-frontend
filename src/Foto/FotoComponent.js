@@ -4,8 +4,6 @@ import "@fortawesome/fontawesome-free/css/all.css";
 import "./foto.css";
 
 export default props => {
-  let result = null;
-
   return (
     <div className="fotocontainer col-md-2 ">
       {props.image != null ? (

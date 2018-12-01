@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Card, CardImg, CardBody, CardTitle, Table } from "reactstrap";
-import myImage from "../assets/myImage2.png";
+import { Card, CardImg, CardBody, CardTitle } from "reactstrap";
 import Profileigenschaften from "./Profileeigenschaften";
 import "./profil.scss";
 import { Button } from "reactstrap";
@@ -18,16 +17,18 @@ export default class ProfilPortrait extends Component {
   }
 
   componentDidMount() {
-    let { name, alter, email, telefonNr } = this.state;
+    let { name, alter, email, telefonNr, image } = this.state;
     name = this.props.account.name;
     alter = this.props.account.alter;
     telefonNr = this.props.account.telefonNummer;
-    email = this.props.account.emailAdresse;
+    email = this.props.account.email;
+    image = this.props.account.image;
     this.setState({
       name,
       alter,
       email,
-      telefonNr
+      telefonNr,
+      image
     });
   }
 
@@ -38,7 +39,7 @@ export default class ProfilPortrait extends Component {
     name = nextProps.account.name;
     alter = nextProps.account.alter;
     telefonNr = nextProps.account.telefonNummer;
-    email = nextProps.account.emailAdresse;
+    email = nextProps.account.email;
     image = nextProps.account.image;
     console.log("receiveProps props " + name, alter, telefonNr, email);
     this.setState({
@@ -54,18 +55,16 @@ export default class ProfilPortrait extends Component {
     let { image } = this.state;
 
     return (
-      <div>
-        <Card className="card o-card">
-          <CardImg className="card-img-top card__image" alt="Card image cap" src={myImage} />
-          <CardBody>
-            <CardTitle className="card-title">{this.state.name}</CardTitle>
-            <Profileigenschaften attribute={this.state} />
-            <Button className="btn btn-success" onClick={this.props.onClick}>
-              Bearbeiten
-            </Button>
-          </CardBody>
-        </Card>
-      </div>
+      <Card className="card o-card">
+        <CardImg className="card-img-top card__image" alt="Card image cap" src={this.state.image != null ? URL.createObjectURL(image) : null} />
+        <CardBody>
+          <CardTitle className="card-title">{this.state.name}</CardTitle>
+          <Profileigenschaften attribute={this.state} />
+          <Button className="btn btn-success" onClick={this.props.onClick}>
+            Bearbeiten
+          </Button>
+        </CardBody>
+      </Card>
     );
   }
 }

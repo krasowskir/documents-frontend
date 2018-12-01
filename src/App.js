@@ -1,20 +1,17 @@
 import React, { Component } from "react";
-import "./App.css";
-import fetch from "isomorphic-fetch";
-import base64 from "base-64";
+import "./App.scss";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.bundle";
 import ThemenTabs from "./ThemenTabs/ThemenTabs";
 import Login from "./Login/Login";
 import Board from "./Blog/Board";
 import ProfilContainer from "./Profil/ProfilContainer";
-import ProfilPortrait from "./Profil/ProfilPortrait";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      logedIn: true,
+      logedIn: false,
       editable: false,
       username: "",
       password: ""
@@ -45,16 +42,12 @@ class App extends Component {
         </nav>
         <ThemenTabs />
 
-        <div className="tab-content" id="mytabcontetn">
+        <div className="tab-content container" id="mytabcontetn">
           <div className="tab-pane fade show active" id="start" role="tabpanel" aria-labelledby="start-tab">
             <Board />
           </div>
           <div className="tab-pane fade" id="profil" role="tabpanel" aria-labelledby="profil-tab">
-            {/* <ProfilPortrait
-              account={{ name: "richard", telefonNummer: "015140460849", alter: "27", email: "krtoni@arcor.de" }}
-              credentials={this.state}
-            /> */}
-            <ProfilContainer />
+            {this.state.logedIn ? <ProfilContainer credentials={this.state} /> : <Login onChange={this.onLogedIn} />}
           </div>
           <div className="tab-pane fade" id="kontakt" role="tabpanel" aria-labelledby="kontakt-tab">
             Kontakt

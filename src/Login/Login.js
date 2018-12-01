@@ -42,7 +42,7 @@ export default class LoginPage extends Component {
       method: "GET",
       credentials: "include"
     }).then(response => {
-      if (response.status == 200) {
+      if (response.status === 200) {
         this.props.onChange(this.state);
       }
     });

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import FotoComponent from "../Foto/FotoComponent";
 import MyInput from "../widgets/Input";
-import { Button, Form } from "reactstrap";
+import { Button } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import "./profil.scss";
 
@@ -21,7 +21,7 @@ export default class ProfilEditable extends Component {
     this.onChangeAlter = this.onChangeAlter.bind(this);
     this.onChangeTel = this.onChangeTel.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
   componentDidMount() {
@@ -75,34 +75,25 @@ export default class ProfilEditable extends Component {
     });
   }
 
-  onSubmit() {
-    console.info("submitted with: " + JSON.stringify(this.state));
-    var form = document.querySelector("myForm");
-    this.props.onClick();
-    fetch("http://localhost:8090/api/accountPost", {
-      method: "POST",
-      body: new FormData(form)
-    }).then(response => {
-      if (response.status == "200") {
-        console.log(JSON.stringify(response));
-      }
-    });
+  onClick() {
+    console.log("editable state: " + JSON.stringify(this.state));
+    this.props.onClick(this.state);
   }
 
   render() {
     return (
-      <Form className="row" method="post" id="myForm" encType="multipart/form-data">
+      <div className="row" id="myForm" encType="multipart/form-data">
         <div className="meinform col-md-4 offset-md-2">
           <MyInput type="text" name="name" placeholder="Name..." value={this.state.name} onChange={this.onChangeName} />
           <MyInput type="text" name="alter" placeholder="Alter..." value={this.state.alter} onChange={this.onChangeAlter} />
           <MyInput type="text" name="tel" placeholder="Telefonnummer..." value={this.state.telefonNummer} onChange={this.onChangeTel} />
           <MyInput type="text" name="email" placeholder="Email..." value={this.state.email} onChange={this.onChangeEmail} />
-          <Button type="submit" className="btn btn-primary" onClick={this.props.onClick}>
+          <Button type="button" className="btn" color="primary" onClick={this.onClick}>
             Abgeben
           </Button>
         </div>
         <FotoComponent onChange={this.onChangeImage} image={this.state.image} />
-      </Form>
+      </div>
     );
   }
 }
